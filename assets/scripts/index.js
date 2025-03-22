@@ -6,7 +6,6 @@ import { Knight } from './heroes.js';
 
 const knightButton = document.getElementById("knightButton");
 const slimeButton = document.getElementById("slimeButton");
-const knightDiv = document.getElementById("knightDiv");
 
 knightButton.addEventListener("click", () => {
     displayKnight();
