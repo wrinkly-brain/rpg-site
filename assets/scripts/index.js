@@ -26,8 +26,8 @@ function displayKnight() {
     abilityContainer.innerHTML = '';
     
     // Display all abilities
-    for (let i = 0; i < enemy1.abilities.length; i++) {
-        const ability = enemy1.abilities[i];
+    for (let i = 0; i < Knight.abilities.length; i++) {
+        const ability = Knight.abilities[i];
 
         // Create button
         const button = document.createElement('button')
