@@ -12,10 +12,10 @@ export const Knight = {
     power: 7,
     speed: 5,
     abilities: [
-        new Attack(1, 'Stab', 'Plunges their blade into their foe.', 3, null, 0, 2),
-        new Attack(2, 'Slash', 'Sweeps their blade across several enemies.', 2, null, 0, 2, { isSingleTarget: false, isAOE: true }),
-        new Attack(3, 'Shield Bash', 'Bashes the enemy with their shield.', 1, 'Stun', 1, 3),
-        new Aid(4, 'Guard', 'Raises their shield to block incoming attacks for the next turn.', 0, 'Defense', 1, 2)
+        new Attack('Stab', 'Plunges their blade into their foe.', 3, null, 0, 2),
+        new Attack('Slash', 'Sweeps their blade across several enemies.', 2, null, 0, 2, { isSingleTarget: false, isAOE: true }),
+        new Attack('Shield Bash', 'Bashes the enemy with their shield.', 1, 'Stun', 1, 3),
+        new Aid('Guard', 'Raises their shield to block incoming attacks for the next turn.', 0, 'Defense', 1, 2)
     ]
 };
 
@@ -82,7 +82,7 @@ export const Rifleman = {
     maxAp: 1,
     defense: 5,
     power: 9,
-    speed: 6,
+    speed: 4,
     abilities: [
         new Attack('Musket Shot', 'Fires a shot from their musket. Has a chance to be a critical hit.', 4, 'Critical Chance', 0, 1),
         new Attack('Blunderbuss Blast', 'Fires a blast from their blunderbuss. Hits surrounding enemies.', 6, null, 0, 2, { isSingleTarget: false, isAOE: true }),
