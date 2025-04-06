@@ -1,6 +1,5 @@
 export class Ability {
     constructor(
-        id,
         name, 
         description, 
         apCost
@@ -14,7 +13,6 @@ export class Ability {
 
 export class Attack extends Ability {
     constructor(
-        id,
         name,
         description,
         damage,
@@ -25,12 +23,19 @@ export class Attack extends Ability {
         isDebuff = debuffEffect !== null
     )
     {
-        super(id, name, description, apCost);
+        super(name, description, apCost);
         this.damage = damage;
         this.isDebuff = isDebuff;
         this.debuffEffect = debuffEffect;
         this.bLength = bLength;
         this.flags = flags;
+    }
+
+    chooseTarget() {
+        // Logic to return target based on AOE or single target
+        const enemyPartyContainer = document.getElementById('enemyParty');
+
+
     }
 
     applyAttack(hero, target) {
@@ -65,7 +70,6 @@ export class Attack extends Ability {
 
 export class Aid extends Ability {
     constructor(
-        id,
         name,
         description,
         buffEffect = null,
@@ -75,7 +79,7 @@ export class Aid extends Ability {
         isBuff = buffEffect !== null
     )
     {
-        super(id, name, description, apCost);
+        super(name, description, apCost);
         this.isBuff = isBuff;
         this.buffEffect = buffEffect;
         this.bLength = bLength;
@@ -91,13 +95,11 @@ export class Aid extends Ability {
 
 export class EnemyAbility {
     constructor(
-        id,
         name,
         damage,
         chance
     )
     {
-        this.id = id;
         this.name = name;
         this.damage = damage;
         this.chance = chance;
@@ -106,7 +108,6 @@ export class EnemyAbility {
 
 export class EnemyAttack extends EnemyAbility {
     constructor(
-        id,
         name,
         damage,
         chance,
@@ -116,7 +117,7 @@ export class EnemyAttack extends EnemyAbility {
         isDebuff = debuffEffect !== null
     )
     {
-        super(id, name, damage, chance);
+        super(name, damage, chance);
         this.isDebuff = isDebuff;
         this.debuffEffect = debuffEffect;
         this.bLength = bLength;
@@ -126,7 +127,6 @@ export class EnemyAttack extends EnemyAbility {
 
 export class EnemyAid extends EnemyAbility {
     constructor(
-        id,
         name,
         chance,
         buffEffect = null,
@@ -135,7 +135,7 @@ export class EnemyAid extends EnemyAbility {
         isBuff = buffEffect !== null
     )
     {
-        super(id, name, chance);
+        super(name, chance);
         this.isBuff = isBuff;
         this.buffEffect = buffEffect;
         this.bLength = bLength;
