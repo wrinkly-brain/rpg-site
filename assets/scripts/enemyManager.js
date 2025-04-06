@@ -20,6 +20,7 @@ function displayEnemyParty(enemyParty) {
         const enemy = enemyParty[i];
         const enemyDiv = document.createElement('div');
         enemyDiv.className = 'enemy';
+        enemyDiv.dataset.index = i; // Store the index of the enemy in the array
         enemyDiv.innerHTML = `
             <h3>${enemy.name}</h3>
             <p>HP: ${enemy.hp}/${enemy.maxHp}</p>
@@ -28,8 +29,6 @@ function displayEnemyParty(enemyParty) {
         `;
         enemyPartyContainer.appendChild(enemyDiv);
     }
-
-    console.log('Enemy party displayed:', enemyPartyContainer.innerHTML);
 }
 
 function genRandWave(enemyParty) {
