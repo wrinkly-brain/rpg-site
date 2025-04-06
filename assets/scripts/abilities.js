@@ -42,6 +42,7 @@ export class Attack extends Ability {
         let damage = this.damage;
         // Handle Multihit
         if (this.flags.isMultihit) {
+            // Create variables to track chance to hit and miss. Hit counter is for display purposes
             let chance = 100;
             let miss = 0;
             let hitCounter = 0;
@@ -61,6 +62,7 @@ export class Attack extends Ability {
         // Handle Single Hit
         else {
             target.hp -= damage;
+            // Apply debuff
         }
 
         // Dedeuct AP
