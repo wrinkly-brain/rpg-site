@@ -1,6 +1,3 @@
-- Create structs (or whatever) to hold hero info and enemy info
--- Heros and enemy types should be generated in onload functions
-- Create input obtainer
 - Implement basic attacking functions
 - Implement death
 - Implement turn system (add speed?)
