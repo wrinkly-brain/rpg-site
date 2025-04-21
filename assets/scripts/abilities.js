@@ -31,18 +31,21 @@ export class Attack extends Ability {
         this.flags = flags;
     }
 
-    enableEnemySelection() {
+    enableEnemySelection(hero, enemyParty) {
         // Logic to return target based on AOE or single target
         const enemyPartyContainer = document.getElementById('enemyParty');
         const enemies = enemyPartyContainer.getElementsByClassName('enemy');
 
+
+        this.enemyClickHandler = (event) => {
+            const index = event.currentTarget.dataset.index; // Get the index from the data attribute
+            const target = enemyParty[index]; // Use the index to get the target from the enemyParty array
+            this.disableEnemySelection(); // Disable further selection
+            this.applyAttack(hero, target); // Call applyAttack with the selected target
+        };
+
         Array.from(enemies).forEach(enemyDiv => {
-            enemyDiv.addEventListener('click', () => {
-                const index = enemyDiv.dataset.index; // Get the index from the data attribute
-                const target = enemyParty[index]; // Use the index to get the target from the enemyParty array
-                this.disableEnemySelection(); // Disable further selection
-                this.applyAttack(hero, target); // Call applyAttack with the selected target
-            });
+            enemyDiv.addEventListener('click', this.enemyClickHandler);
         });
     }
 
@@ -51,7 +54,7 @@ export class Attack extends Ability {
         const enemies = enemyPartyContainer.getElementsByClassName('enemy');
 
         Array.from(enemies).forEach(enemyDiv => {
-            enemyDiv.removeEventListener('click');
+            enemyDiv.removeEventListener('click', this.enemyClickHandler);
         });
     }
 
@@ -84,6 +87,13 @@ export class Attack extends Ability {
 
         // Dedeuct AP
         hero.ap -= this.apCost;
+
+        const enemyPartyContainer = document.getElementById('enemyParty');
+        const enemyDiv = enemyPartyContainer.querySelector(`[data-index="${target.id}"]`);
+        if (enemyDiv) {
+            const hpElement = enemyDiv.querySelector('.enemy-hp');
+            hpElement.textContent = `HP: ${target.hp}/${target.maxHp}`;
+        }
     }
 }
 

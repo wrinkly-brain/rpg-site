@@ -3,8 +3,9 @@ import { createEnemy, getRandomEnemyType } from "./enemies.js";
 function fillEnemyPartyWithRand(enemyParty) {
     for (let i = 0; i <= 3; i++) {
         const enemyType = getRandomEnemyType();
-        const enemy = createEnemy(enemyType);
+        const enemy = createEnemy(enemyType, i);
         enemyParty.push(enemy);
+        console.log(enemy)
     }
 
     console.log('Enemy party filled with random enemies:', enemyParty);
@@ -23,7 +24,7 @@ function displayEnemyParty(enemyParty) {
         enemyDiv.dataset.index = i; // Store the index of the enemy in the array
         enemyDiv.innerHTML = `
             <h3>${enemy.name}</h3>
-            <p>HP: ${enemy.hp}/${enemy.maxHp}</p>
+            <p class="enemy-hp">HP: ${enemy.hp}/${enemy.maxHp}</p>
             <p>Speed: ${enemy.speed}</p>
             <p>Defense: ${enemy.defense}</p>
         `;

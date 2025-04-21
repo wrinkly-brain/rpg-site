@@ -14,14 +14,17 @@ const enemyEraseButton = document.getElementById("enemyEraseButton");
 
 addKnightButton.addEventListener("click", () => {
     const knight = Knight;
-    heroParty.push(knight);
-
-
-
-
-
-
-        heroPartyContainer.appendChild(heroDiv);
+    const knightDiv = document.getElementById("knightDiv");
+    for (let i = 0; i < knight.abilities.length; i++) {
+        const ability = knight.abilities[i];
+        const button = document.createElement('button');
+        button.textContent = `${ability.name}`;
+        button.addEventListener('click', () => {
+            ability.enableEnemySelection(knight, enemyParty);
+            console.log(`Ability ${ability.name} clicked`);
+        });
+        knightDiv.appendChild(button);
+    }
 });
 
 enemyGenButton.addEventListener("click", () => {

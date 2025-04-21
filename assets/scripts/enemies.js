@@ -13,10 +13,10 @@ class Enemy {
     }
 }
 
-function createEnemy(type) {
+function createEnemy(type, id) {
     const enemyTypes = {
         slime: {
-            id: 1,
+            id: id,
             attribute: null,
             name: 'Slime',
             hp: 15,
@@ -32,7 +32,7 @@ function createEnemy(type) {
         },
 
         gremlin: {
-            id: 2,
+            id: id,
             attribute: null,
             name: 'Gremlin',
             hp: 20,
