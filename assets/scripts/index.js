@@ -2,6 +2,7 @@
 // import { Attack, Aid } from './abilities.js';
 import { Knight } from './heroes.js';
 import { genRandWave, eraseEnemyParty } from "./enemyManager.js";
+import { Attack, Aid } from './abilities.js'; // For checking if the ability is an attack or aid
 
 const enemyParty = [];
 const heroParty = [];
@@ -20,8 +21,12 @@ addKnightButton.addEventListener("click", () => {
         const button = document.createElement('button');
         button.textContent = `${ability.name}`;
         button.addEventListener('click', () => {
-            ability.enableEnemySelection(knight, enemyParty);
-            console.log(`Ability ${ability.name} clicked`);
+            if (ability instanceof Attack) {
+                ability.enableEnemySelection(knight, enemyParty);
+            }
+            if (ability instanceof Aid) {
+                ability.enableAllySelection(knight, heroParty);
+            }
         });
         knightDiv.appendChild(button);
     }
