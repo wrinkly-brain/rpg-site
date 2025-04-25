@@ -1,3 +1,5 @@
+import { checkEnemyDeath, updateEnemyPartyDisplay } from "./enemyManager.js";
+
 export class Ability {
     constructor(
         name, 
@@ -41,7 +43,7 @@ export class Attack extends Ability {
             const index = event.currentTarget.dataset.index; // Get the index from the data attribute
             const target = enemyParty[index]; // Use the index to get the target from the enemyParty array
             this.disableEnemySelection(); // Disable further selection
-            this.applyAttack(hero, target); // Call applyAttack with the selected target
+            this.applyAttack(hero, target, enemyParty); // Call applyAttack with the selected target
         };
 
         Array.from(enemies).forEach(enemyDiv => {
@@ -58,7 +60,7 @@ export class Attack extends Ability {
         });
     }
 
-    applyAttack(hero, target) {
+    applyAttack(hero, target, enemyParty) {
         let damage = this.damage;
         // Handle Multihit
         if (this.flags.isMultihit) {
@@ -94,6 +96,9 @@ export class Attack extends Ability {
             const hpElement = enemyDiv.querySelector('.enemy-hp');
             hpElement.textContent = `HP: ${target.hp}/${target.maxHp}`;
         }
+
+        checkEnemyDeath(enemyParty, target)
+        updateEnemyPartyDisplay(enemyParty)
     }
 }
 
