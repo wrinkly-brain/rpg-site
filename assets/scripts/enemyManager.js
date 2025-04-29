@@ -53,8 +53,6 @@ function checkEnemyDeath(enemyParty, target) {
 }
 
 function updateEnemyPartyDisplay(enemyParty) {
-    const enemyPartyContainer = document.getElementById('enemyParty');
-
     // Probably gonna have to make an empty element so that enemy cards stay in position
     for (let i = 0; i < enemyParty.length; i++) {
         const enemy = enemyParty[i]
