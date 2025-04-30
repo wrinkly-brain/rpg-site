@@ -1,12 +1,11 @@
-import { checkEnemyDeath, updateEnemyPartyDisplay } from "./enemyManager.js";
+import { checkEnemyDeath, checkEnemyPartyDeath, updateEnemyPartyDisplay } from "./enemyManager.js";
 
 export class Ability {
     constructor(
-        name, 
-        description, 
+        name,
+        description,
         apCost
-    )
-    {
+    ) {
         this.name = name;
         this.description = description;
         this.apCost = apCost;
@@ -23,8 +22,7 @@ export class Attack extends Ability {
         apCost,
         flags = { isSingleTarget: true, isAOE: false, isMultihit: false },
         isDebuff = debuffEffect !== null
-    )
-    {
+    ) {
         super(name, description, apCost);
         this.damage = damage;
         this.isDebuff = isDebuff;
@@ -61,7 +59,7 @@ export class Attack extends Ability {
     }
 
     applyAttack(hero, target, enemyParty) {
-        let damage = this.damage;
+        const damage = this.damage;
         // Handle Multihit
         if (this.flags.isMultihit) {
             // Create variables to track chance to hit and miss. Hit counter is for display purposes
@@ -75,9 +73,40 @@ export class Attack extends Ability {
                     target.hp -= damage;
                     // Apply debuff
                 }
-                chance *= 0.75; 
+                chance *= 0.75;
 
                 hitCounter++; // For display purposes
+            }
+        }
+
+        else if (this.flags.isAOE) {
+            target.hp -= damage;
+
+            if (target.id > 0) {
+                // Handle enemy to the left
+                const leftIndex = target.id - 1
+                const leftEnemy = enemyParty[leftIndex]
+                if (leftEnemy) {
+                    leftEnemy.hp -= damage;
+                }
+            }
+
+            // Handle enemy to the right
+            const rightIndex = target.id + 1
+            if (rightIndex < 5) {
+                const rightEnemy = enemyParty[rightIndex]
+                if (rightEnemy) {
+                    rightEnemy.hp -= damage;
+                }
+            }
+
+            // Handle enemy to the right, ignore left since the enemy index is 0
+            else {
+                const rightIndex = target.id + 1
+                const rightEnemy = enemyParty[rightIndex]
+                if (rightEnemy) {
+                    rightEnemy.hp -= damage;
+                }
             }
         }
 
@@ -90,15 +119,9 @@ export class Attack extends Ability {
         // Dedeuct AP
         hero.ap -= this.apCost;
 
-        const enemyPartyContainer = document.getElementById('enemyParty');
-        const enemyDiv = enemyPartyContainer.querySelector(`[data-index="${target.id}"]`);
-        if (enemyDiv) {
-            const hpElement = enemyDiv.querySelector('.enemy-hp');
-            hpElement.textContent = `HP: ${target.hp}/${target.maxHp}`;
-        }
-
-        checkEnemyDeath(enemyParty, target)
+        checkEnemyDeath(enemyParty)
         updateEnemyPartyDisplay(enemyParty)
+        checkEnemyPartyDeath(enemyParty)
     }
 }
 
@@ -111,8 +134,7 @@ export class Aid extends Ability {
         apCost,
         flags = { isSelfTarget: false, isSingleTarget: true, isAll: false },
         isBuff = buffEffect !== null
-    )
-    {
+    ) {
         super(name, description, apCost);
         this.isBuff = isBuff;
         this.buffEffect = buffEffect;
@@ -122,7 +144,7 @@ export class Aid extends Ability {
 
     // applyAid(hero, target, buff) {
     //     buff = this.buffEffect;
-        
+
     //     hero.ap -= this.apCost;
     // }
 }
@@ -132,8 +154,7 @@ export class EnemyAbility {
         name,
         damage,
         chance
-    )
-    {
+    ) {
         this.name = name;
         this.damage = damage;
         this.chance = chance;
@@ -149,8 +170,7 @@ export class EnemyAttack extends EnemyAbility {
         bLength = 0,
         flags = { isSingleTarget: true, isAOE: false, isMultihit: false },
         isDebuff = debuffEffect !== null
-    )
-    {
+    ) {
         super(name, damage, chance);
         this.isDebuff = isDebuff;
         this.debuffEffect = debuffEffect;
@@ -167,8 +187,7 @@ export class EnemyAid extends EnemyAbility {
         bLength = 0,
         flags = { isSelfTarget: false, isSingleTarget: true, isAll: false },
         isBuff = buffEffect !== null
-    )
-    {
+    ) {
         super(name, chance);
         this.isBuff = isBuff;
         this.buffEffect = buffEffect;
