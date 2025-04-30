@@ -5,11 +5,7 @@ function fillEnemyPartyWithRand(enemyParty) {
         const enemyType = getRandomEnemyType();
         const enemy = createEnemy(enemyType, i);
         enemyParty.push(enemy);
-        console.log(enemy)
     }
-
-    console.log('Enemy party filled with random enemies:', enemyParty);
-
     return enemyParty;
 }
 
@@ -40,30 +36,49 @@ function genRandWave(enemyParty) {
 
 function eraseEnemyParty(enemyParty) {
     enemyParty.length = 0; // Clear the array
+    
+    // ONLY NECESSARY IF YOU MANUALLY ERASE PARTY
+    // SHOULD DELETE LATER
     const enemyPartyContainer = document.getElementById('enemyParty');
     enemyPartyContainer.innerHTML = ''; // Clear previous enemies
 }
 
 // Call function after each turn
-function checkEnemyDeath(enemyParty, target) {
-    if (target.hp <= 0) {
-        const index = target.id
-        enemyParty.splice(index, 1, null) // Dead enemy is replaced with null to keep other enemies in the same positions in array
+function checkEnemyDeath(enemyParty) {
+    for (let i = 0; i < enemyParty.length; i++) {
+        const currentEnemy = enemyParty[i]
+
+        if (currentEnemy) {
+            if (currentEnemy.hp <= 0) {
+                enemyParty.splice(i, 1, null) // Dead enemy is replaced with null to keep other enemies in the same positions in array
+            }
+        }
     }
 }
 
 function updateEnemyPartyDisplay(enemyParty) {
-    // Probably gonna have to make an empty element so that enemy cards stay in position
     for (let i = 0; i < enemyParty.length; i++) {
         const enemy = enemyParty[i]
-        const element = document.querySelector(`[data-index="${i}"]`)
+        const enemyDiv = document.querySelector(`[data-index="${i}"]`)
 
-        if (enemy == null && element) {
-            element.innerHTML = '' // Clear card for dead enemy
+        if (!enemy) {
+            enemyDiv.innerHTML = '' // Clear card for dead enemy
 
-            // element.innerHTML = '<p>Empty Slot</p>'; // Optional: Display "Empty Slot"
-            // element.classList.add('empty'); // Optional: Add a class for styling
+            // enemyDiv.innerHTML = '<p>Empty Slot</p>'; // Optional: Display "Empty Slot"
+            // enemyDiv.classList.add('empty'); // Optional: Add a class for styling
+        }
+        else {
+            const hpElement = enemyDiv.querySelector('.enemy-hp');
+            hpElement.textContent = `HP: ${enemy.hp}/${enemy.maxHp}`;
         }
     }
 }
-export { genRandWave, eraseEnemyParty, checkEnemyDeath, updateEnemyPartyDisplay };
+
+function checkEnemyPartyDeath(enemyParty) {
+    const allDead = enemyParty.every(enemy => enemy === null)
+
+    if (allDead) {
+        eraseEnemyParty(enemyParty)
+    }
+}
+export { genRandWave, eraseEnemyParty, checkEnemyDeath, updateEnemyPartyDisplay, checkEnemyPartyDeath };
