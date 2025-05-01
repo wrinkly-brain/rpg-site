@@ -1,8 +1,6 @@
-- Implement basic attacking functions
-- Implement death
-- Implement turn system (add speed?)
+- Test multihit
+- Implement enemy attacks
+- Implement aid buffs
+- Hero party selection screen
+- Implement turn system
 - Create items (add struct)
-- Add spells (will become unique per hero)
-- Create attack types (sweep attack, multihit)
-- Add another hero
-- 
