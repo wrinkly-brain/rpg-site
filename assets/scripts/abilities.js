@@ -67,16 +67,18 @@ export class Attack extends Ability {
             let miss = 0;
             let hitCounter = 0;
 
-            while (chance > miss) {
+            while (miss < chance) {
                 miss = Math.floor(Math.random() * 100);
                 if (miss < chance) {
                     target.hp -= damage;
                     // Apply debuff
+                    hitCounter++; // For display purposes
+                    console.log(`Hit. Miss: ${miss}. Chance: ${chance}`);
                 }
                 chance *= 0.75;
-
-                hitCounter++; // For display purposes
             }
+            console.log(`Miss: ${miss}, Chance: ${chance}`);
+            console.log(`Hit Counter: ${hitCounter}`);
         }
 
         else if (this.flags.isAOE) {
