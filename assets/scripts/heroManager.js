@@ -29,3 +29,13 @@
 //     // Append the button to the ability container
 //     abilityContainer.appendChild(button);
 // }
+
+function updateHeroPartyDisplay(heroParty) {
+    for (let i = 0; i < heroParty.length; i++) {
+        const hero = heroParty[i]
+        const heroDiv = document.querySelector(`[data-index="${i}"]`)
+
+        const hpElement = enemyDiv.querySelector('.hero-hp');
+        hpElement.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+    }
+}
