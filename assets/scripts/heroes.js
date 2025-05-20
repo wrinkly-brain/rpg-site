@@ -1,4 +1,4 @@
-import { Attack, Aid } from './abilities.js'
+import { Attack, Aid } from './ability.js'
 import { SingleHeal } from './buffs.js'
 
 export const Knight = {

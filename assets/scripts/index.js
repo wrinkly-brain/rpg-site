@@ -2,7 +2,7 @@
 // import { Attack, Aid } from './abilities.js';
 import { Brawler } from './heroes.js';
 import { genRandWave, eraseEnemyParty } from "./enemyManager.js";
-import { Attack, Aid } from './abilities.js'; // For checking if the ability is an attack or aid
+import { Attack, Aid } from './ability.js'; // For checking if the ability is an attack or aid
 
 const enemyParty = [];
 const heroParty = [];
