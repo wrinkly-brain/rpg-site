@@ -1,6 +1,0 @@
-- Test multihit
-- Implement enemy attacks
-- Implement aid buffs
-- Hero party selection screen
-- Implement turn system
-- Create items (add struct)
