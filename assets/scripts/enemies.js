@@ -1,4 +1,4 @@
-import { EnemyAttack, EnemyAid } from './abilities.js'
+import { EnemyAttack, EnemyAid } from './enemyAbility.js'
 
 class Enemy {
     constructor(id, attribute, name, hp, maxHp, speed, defense, abilities) {
