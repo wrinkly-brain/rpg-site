@@ -30,12 +30,15 @@
 //     abilityContainer.appendChild(button);
 // }
 
-function updateHeroPartyDisplay(heroParty) {
+export function updateHeroPartyDisplay(heroParty) {
     for (let i = 0; i < heroParty.length; i++) {
         const hero = heroParty[i]
-        const heroDiv = document.querySelector(`[data-index="${i}"]`)
+        console.log(hero)
+        const heroDiv = document.querySelector(`[data-hero-index="${i}"]`)
+        console.log(heroDiv)
 
-        const hpElement = enemyDiv.querySelector('.hero-hp');
+        const hpElement = heroDiv.querySelector('.hero-hp');
         hpElement.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+        console.log(hero.hp)
     }
 }
