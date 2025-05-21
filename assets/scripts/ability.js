@@ -38,7 +38,7 @@ export class Attack extends Ability {
 
 
         this.enemyClickHandler = (event) => {
-            const index = event.currentTarget.dataset.index; // Get the index from the data attribute
+            const index = event.currentTarget.dataset.enemyIndex; // Get the index from the data attribute
             const target = enemyParty[index]; // Use the index to get the target from the enemyParty array
             this.disableEnemySelection(); // Disable further selection
             this.applyAttack(hero, target, enemyParty); // Call applyAttack with the selected target
