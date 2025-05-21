@@ -27,7 +27,7 @@ export class EnemyAttack extends EnemyAbility {
         this.flags = flags;
     }
 
-    applyAttack(hero, target, heroParty) {
+    applyEnemyAttack(target, heroParty) {
         const damage = this.damage;
         // Handle Multihit
         if (this.flags.isMultihit) {
