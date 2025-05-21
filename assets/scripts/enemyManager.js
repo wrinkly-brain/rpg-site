@@ -17,7 +17,7 @@ function displayEnemyParty(enemyParty) {
         const enemy = enemyParty[i];
         const enemyDiv = document.createElement('div');
         enemyDiv.className = 'enemy';
-        enemyDiv.dataset.index = i; // Store the index of the enemy in the array
+        enemyDiv.dataset.enemyIndex = i; // Store the index of the enemy in the array
         enemyDiv.innerHTML = `
             <h3>${enemy.name}</h3>
             <p>ID: ${enemy.id}</p>
@@ -59,7 +59,7 @@ function checkEnemyDeath(enemyParty) {
 function updateEnemyPartyDisplay(enemyParty) {
     for (let i = 0; i < enemyParty.length; i++) {
         const enemy = enemyParty[i]
-        const enemyDiv = document.querySelector(`[data-index="${i}"]`)
+        const enemyDiv = document.querySelector(`[data-enemy-index="${i}"]`)
 
         if (!enemy) {
             enemyDiv.innerHTML = '' // Clear card for dead enemy
