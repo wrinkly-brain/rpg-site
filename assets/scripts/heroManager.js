@@ -33,12 +33,9 @@
 export function updateHeroPartyDisplay(heroParty) {
     for (let i = 0; i < heroParty.length; i++) {
         const hero = heroParty[i]
-        console.log(hero)
         const heroDiv = document.querySelector(`[data-hero-index="${i}"]`)
-        console.log(heroDiv)
 
         const hpElement = heroDiv.querySelector('.hero-hp');
         hpElement.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
-        console.log(hero.hp)
     }
 }
