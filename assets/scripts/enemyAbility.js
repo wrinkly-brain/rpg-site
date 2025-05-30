@@ -1,11 +1,9 @@
 export class EnemyAbility {
     constructor(
         name,
-        damage,
         chance
     ) {
         this.name = name;
-        this.damage = damage;
         this.chance = chance;
     }
 }
@@ -13,14 +11,15 @@ export class EnemyAbility {
 export class EnemyAttack extends EnemyAbility {
     constructor(
         name,
-        damage,
         chance,
+        damage,
         debuffEffect = null,
         bLength = 0,
         flags = { isSingleTarget: true, isAOE: false, isMultihit: false },
         isDebuff = debuffEffect !== null
     ) {
-        super(name, damage, chance);
+        super(name, chance);
+        this.damage = damage;
         this.isDebuff = isDebuff;
         this.debuffEffect = debuffEffect;
         this.bLength = bLength;
@@ -89,8 +88,24 @@ export class EnemyAttack extends EnemyAbility {
 }
 
 export function chooseRandEnemyAbility(enemyAbilities) {
-    const randIndex = Math.floor(Math.random() * enemyAbilities.length);
-    return enemyAbilities[randIndex];
+    let totalChance = 0;
+    for (const ability of enemyAbilities) {
+        totalChance += ability.chance;
+    }
+
+    // Rand number between 0 and totalChance
+    const rand = Math.random() * totalChance;
+
+    // Determine which ability rand falls into
+    let cumulative = 0;
+    for (const ability of enemyAbilities) {
+        cumulative += ability.chance;
+        if (rand < cumulative) {
+            return ability;
+        }
+    }
+
+    return Error("Enemy ability wasn't chosen.")
 }
 
 export function chooseRandTarget(heroParty) {
