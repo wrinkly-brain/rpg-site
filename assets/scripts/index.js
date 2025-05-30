@@ -3,7 +3,7 @@
 import { Brawler } from './heroes.js';
 import { genRandWave, eraseEnemyParty } from "./enemyManager.js";
 import { Attack, Aid } from './ability.js'; // For checking if the ability is an attack or aid
-import { chooseRandEnemyAbility, chooseRandTarget } from './enemyAbility.js';
+import { chooseRandEnemyAbility, chooseRandTarget, EnemyAttack } from './enemyAbility.js';
 import { updateHeroPartyDisplay } from './heroManager.js';
 
 const enemyParty = [];
@@ -50,7 +50,12 @@ enemyAttackButton.addEventListener("click", () => {
     const ability = chooseRandEnemyAbility(enemy.abilities);
     console.log(ability);
     const target = chooseRandTarget(heroParty);
-    console.log(target);
-    ability.applyEnemyAttack(target, heroParty);
+    if ( ability instanceof EnemyAttack) {
+        ability.applyEnemyAttack(target, heroParty);
+    }
+    else {
+        console.log("It chose an ability")
+    }
+    
     updateHeroPartyDisplay(heroParty);
 });
