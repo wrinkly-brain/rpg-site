@@ -24,10 +24,10 @@ function createEnemy(type, id) {
             speed: 4,
             defense: 1,
             abilities: [
-                new EnemyAttack('Pointify and Poke', 3, 5, null, 0),
+                new EnemyAttack('Pointify and Poke', 5, 3, null, 0),
                 new EnemyAid('Solidify', 1, 'Defense Up', 2, { isSelfTarget: true }),
-                new EnemyAttack('Acidic Shot', 4, 2, 'Defense Down', 3),
-                new EnemyAttack('Slimey Slam', 8, 1, null, 0, { isSingleTarget: false, isAOE: true })
+                new EnemyAttack('Acidic Shot', 2, 4, 'Defense Down', 3),
+                new EnemyAttack('Slimey Slam', 1, 8, null, 0, { isSingleTarget: false, isAOE: true })
             ]
         },
 
@@ -40,10 +40,10 @@ function createEnemy(type, id) {
             speed: 7,
             defense: 2,
             abilities: [
-                new EnemyAttack('Shank', 3, 2, null, 0, { isMultihit: true }),
+                new EnemyAttack('Shank', 2, 3, null, 0, { isMultihit: true }),
                 new EnemyAttack('Scratch', 4, 4, null, 0),
-                new EnemyAttack('Throw Rock', 5, 3, null, 0),
-                new EnemyAttack('Feral Rage', 4, 1, 'Bleed', 2)
+                new EnemyAttack('Throw Rock', 3, 5, null, 0),
+                new EnemyAttack('Feral Rage', 1, 4, 'Bleed', 2)
             ]
         }
     };
