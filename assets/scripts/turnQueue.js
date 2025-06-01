@@ -1,3 +1,5 @@
+import { Enemy } from "./enemies";
+
 /* 
     The idea is to generate an active queue (based on speed values and in descending order) when a new wave starts. 
     When a turn is completed, the character is placed into an upcoming queue (for display). 
@@ -48,5 +50,25 @@ function genTurnQueue(heroParty, enemyParty) {
 
     for (const character of tempArray) {
         turnQueue.enqueue(character)
+    }
+}
+
+function nextTurn(activeQueue, heroParty) {
+    const charUpNext = activeQueue.dequeue();
+
+    if (charUpNext instanceof Enemy) {
+        const ability = chooseRandEnemyAbility(charUpNext.abilities);
+        const target = chooseRandTarget(heroParty);
+        if (ability instanceof EnemyAttack) {
+            ability.applyEnemyAttack(target, heroParty);
+        }
+        else {
+            console.log("It chose an ability")
+        }
+        
+        updateHeroPartyDisplay(heroParty);
+    }
+    else {
+        // Enable hero's abilities
     }
 }
