@@ -1,6 +1,8 @@
 // Gotta add functions to dynamically show and hide hero abilities and stats
 // Add functions to manage hero selection?
 
+import { Attack } from "./ability";
+
 // const heroPartyContainer = document.getElementById('heroParty');
 // for (let i = 0; i < heroParty.length; i++) {
 //     const hero = heroParty[i];
@@ -29,6 +31,37 @@
 //     // Append the button to the ability container
 //     abilityContainer.appendChild(button);
 // }
+export function displayHeroStats(hero) {
+    const currentHero = document.getElementById("currentHero")
+
+    currentHero.innerHTML = `<h3>${hero.name}</h3>
+                             <h4 class="hero-hp">HP: ${hero.hp}/${hero.maxHp}</h4>
+                             <h4 class="hero-ap">AP: ${hero.ap}/${hero.maxAp}</h4>
+                             <h4>Defense: ${hero.defense}</h4>
+                             <h4>Power: ${hero.power}</h4>
+                             <h4>Speed: ${hero.speed}</h4>`
+}
+
+export function displayHeroAbilities(hero, enemyParty, heroParty) {
+    const heroAbilities = document.getElementById("heroAbilities")
+
+    for (const ability of hero.abilities) {
+        const button = document.createElement('button')
+
+        button.textContent = `${ability.name}`
+        button.addEventListener ('click', () => {
+            if (ability instanceof Attack) {
+                ability.enableEnemySelection(hero, enemyParty);
+            }
+            else {
+                // enableHeroSelection needs to be created
+                ability.enableHeroSelection(hero, heroParty);
+            }
+        });
+
+        heroAbilities.appendChild(button);
+    }
+}
 
 export function updateHeroPartyDisplay(heroParty) {
     for (let i = 0; i < heroParty.length; i++) {
