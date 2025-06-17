@@ -1,4 +1,5 @@
 import { Enemy } from "./enemies";
+import { displayHeroAbilities, displayHeroStats, updateHeroPartyDisplay } from "./heroManager";
 
 /* 
     The idea is to generate an active queue (based on speed values and in descending order) when a new wave starts. 
@@ -53,7 +54,7 @@ function genTurnQueue(heroParty, enemyParty) {
     }
 }
 
-function nextTurn(activeQueue, heroParty) {
+function nextTurn(activeQueue, heroParty, enemyParty) {
     const charUpNext = activeQueue.dequeue();
 
     if (charUpNext instanceof Enemy) {
@@ -69,6 +70,8 @@ function nextTurn(activeQueue, heroParty) {
         updateHeroPartyDisplay(heroParty);
     }
     else {
-        // Enable hero's abilities
+        // Put these functions in one function maybe
+        displayHeroStats(charUpNext)
+        displayHeroAbilities(charUpNext, enemyParty, heroParty)
     }
 }
