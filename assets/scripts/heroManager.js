@@ -16,21 +16,7 @@ import { Attack } from "./ability";
 //         <p>Speed: ${hero.speed}</p>
 //         <p>Defense: ${hero.defense}</p>`;
 // }
-// Maybe I could make the function in the onclick something like: hero.abilities[i].onclick = function() { hero.abilities[i].enableEnemySelection() }
 
-// for (let i = 0; i < Knight.abilities.length; i++) {
-//     const ability = Knight.abilities[i];
-
-//     // Create button
-//     const button = document.createElement('button')
-//     button.textContent = `${ability.name}`;
-//     button.addEventListener('click', () => {
-//         // Needs to be another function that prompts player to pick target
-//     })
-
-//     // Append the button to the ability container
-//     abilityContainer.appendChild(button);
-// }
 export function displayHeroStats(hero) {
     const currentHero = document.getElementById("currentHero")
 
