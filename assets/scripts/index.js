@@ -5,9 +5,12 @@ import { genRandWave, eraseEnemyParty } from "./enemyManager.js";
 import { Attack, Aid } from './ability.js'; // For checking if the ability is an attack or aid
 import { chooseRandEnemyAbility, chooseRandTarget, EnemyAttack } from './enemyAbility.js';
 import { updateHeroPartyDisplay } from './heroManager.js';
+import { displayQueue, genTurnQueue } from './turnQueue.js';
 
 const enemyParty = [];
 const heroParty = [];
+
+const genActiveQueueButton = document.getElementById("genActiveQueueButton");
 
 const addBrawlerButton = document.getElementById("addBrawlerButton");
 
@@ -59,3 +62,8 @@ enemyAttackButton.addEventListener("click", () => {
     
     updateHeroPartyDisplay(heroParty);
 });
+
+genActiveQueueButton.addEventListener("click", () => {
+    const activeQueue = genTurnQueue(heroParty, enemyParty);
+    displayQueue(activeQueue);
+})
