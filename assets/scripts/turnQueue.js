@@ -40,7 +40,7 @@ class Queue {
     }
 }
 
-function genTurnQueue(heroParty, enemyParty) {
+export function genTurnQueue(heroParty, enemyParty) {
     // Add currentSpeed values for heroes and enemies and change this function later
     
     let tempArray = heroParty.concat(enemyParty);
@@ -54,7 +54,7 @@ function genTurnQueue(heroParty, enemyParty) {
     }
 }
 
-function nextTurn(activeQueue, heroParty, enemyParty) {
+export function nextTurn(activeQueue, heroParty, enemyParty) {
     const charUpNext = activeQueue.dequeue();
 
     if (charUpNext instanceof Enemy) {
@@ -73,5 +73,26 @@ function nextTurn(activeQueue, heroParty, enemyParty) {
         // Put these functions in one function maybe
         displayHeroStats(charUpNext)
         displayHeroAbilities(charUpNext, enemyParty, heroParty)
+    }
+}
+
+export function displayQueue(queue) {
+    //change later since activeQueue and futureQueue should be in the same div
+    const activeQueue = document.getElementById("activeQueue");
+
+    for (const char of queue) {
+        const charSpan = document.createElement("span");
+
+        // Set class name for styling
+        if (char instanceof Enemy) {
+            charSpan.className = 'queueEnemy'
+        }
+        else {
+            charSpan.className = 'queueHero'
+        }
+
+        charSpan.innerHTML = `<h5>${char.name}</h5>`
+
+        activeQueue.appendChild(charSpan);
     }
 }
