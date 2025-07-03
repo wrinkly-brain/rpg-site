@@ -4,6 +4,7 @@ import { SingleHeal } from './buffs.js'
 export const Knight = {
     id: 1,
     name: "Knight",
+    isDowned: false,
     hp: 100,
     maxHp: 100,
     ap: 10,
@@ -22,6 +23,7 @@ export const Knight = {
 export const Brawler = {
     id: 2,
     name: "Brawler",
+    isDowned: false,
     hp: 120,
     maxHp: 120,
     ap: 12,
@@ -40,6 +42,7 @@ export const Brawler = {
 export const Medic = {
     id: 3,
     name: "Medic",
+    isDowned: false,
     hp: 80,
     maxHp: 80,
     ap: 15,
@@ -58,6 +61,7 @@ export const Medic = {
 export const Performer = {
     id: 4,
     name: "Performer",
+    isDowned: false,
     hp: 70,
     maxHp: 70,
     ap: 15,
@@ -76,6 +80,7 @@ export const Performer = {
 export const Rifleman = {
     id: 5,
     name: "Rifleman",
+    isDowned: false,
     hp: 90,
     maxHp: 90,
     ap: 1,
