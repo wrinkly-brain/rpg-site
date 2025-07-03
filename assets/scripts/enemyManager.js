@@ -74,11 +74,4 @@ function updateEnemyPartyDisplay(enemyParty) {
     }
 }
 
-function checkEnemyPartyDeath(enemyParty) {
-    const allDead = enemyParty.every(enemy => enemy === null)
-
-    if (allDead) {
-        eraseEnemyParty(enemyParty)
-    }
-}
 export { genRandWave, eraseEnemyParty, checkEnemyDeath, updateEnemyPartyDisplay, checkEnemyPartyDeath };
