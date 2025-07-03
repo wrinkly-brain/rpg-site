@@ -1,4 +1,5 @@
 import { Enemy } from "./enemies";
+import { checkEnemyDeath, genRandWave } from "./enemyManager";
 import { displayHeroAbilities, displayHeroStats, updateHeroPartyDisplay } from "./heroManager";
 
 export class BattleManager {
@@ -7,13 +8,24 @@ export class BattleManager {
         this.enemyParty = enemyParty;
     }
 
-    startBattle() {
-        // Idk what I'm doing with this just yet
+    startBattle(activeQueue) {
+        genRandWave(this.enemyParty);
+        activeQueue = this.genTurnQueue();
+
+        while (!this.enemyParty.every(e => e == null) || !this.heroParty.every(h => h.isDowned == true)) {
+            if (activeQueue.length == 0) {
+                activeQueue = this.genTurnQueue();
+            }
+            else {
+                this.nextTurn(activeQueue);
+                checkEnemyDeath(this.enemyParty);
+            }
+        }
     }
 
     genTurnQueue() {
         // Add currentSpeed values for heroes and enemies and change this function later
-        
+
         let tempArray = this.heroParty.concat(this.enemyParty);
 
         let turnQueue = new Queue();
@@ -38,15 +50,23 @@ export class BattleManager {
             }
             else {
                 // Handle aid
-                console.log("It chose an aid")
+                console.log("It chose an aid");
             }
-            
+
             updateHeroPartyDisplay(this.heroParty);
+
+            setTimeout(() => { }, 3000); // Waits 3 seconds after enemy attack so it's not too abrupt
         }
         else {
             // Put these functions in one function maybe
-            displayHeroStats(charUpNext);
-            displayHeroAbilities(charUpNext, this.enemyParty, this.heroParty);
+            if (charUpNext.isDowned) {
+                console.log(`Ah, scoots. ${charUpNext.name} is downed.`)
+                setTimeout(() => { }, 3000)
+            }
+            else {
+                displayHeroStats(charUpNext);
+                displayHeroAbilities(charUpNext, this.enemyParty, this.heroParty);
+            }
         }
     }
 
