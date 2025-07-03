@@ -58,3 +58,15 @@ export function updateHeroPartyDisplay(heroParty) {
         hpElement.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
     }
 }
+
+export function checkHeroDown(heroParty) {
+    for (const hero of heroParty) {
+        if (hero.isDowned) {
+            continue;
+        }
+
+        if (hero.hp <= 0) {
+            hero.isDowned = true;
+        }
+    }
+}
