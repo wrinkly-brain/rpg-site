@@ -1,7 +1,7 @@
 // Gotta add functions to dynamically show and hide hero abilities and stats
 // Add functions to manage hero selection?
 
-import { Attack } from "./ability";
+import { Attack } from "./ability.js";
 
 // const heroPartyContainer = document.getElementById('heroParty');
 // for (let i = 0; i < heroParty.length; i++) {
@@ -29,10 +29,10 @@ export function displayHeroStats(hero) {
 }
 
 export function displayHeroAbilities(hero, enemyParty, heroParty) {
-    const heroAbilities = document.getElementById("heroAbilities")
+    const heroAbilities = document.getElementById("heroAbilities");
 
     for (const ability of hero.abilities) {
-        const button = document.createElement('button')
+        const button = document.createElement('button');
 
         button.textContent = `${ability.name}`
         button.addEventListener ('click', () => {
