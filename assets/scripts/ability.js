@@ -1,5 +1,3 @@
-import { checkEnemyDeath, checkEnemyPartyDeath, updateEnemyPartyDisplay } from "./enemyManager.js";
-
 export class Ability {
     constructor(
         name,
@@ -119,10 +117,6 @@ export class Attack extends Ability {
 
         // Dedeuct AP
         hero.ap -= this.apCost;
-
-        checkEnemyDeath(enemyParty)
-        updateEnemyPartyDisplay(enemyParty)
-        checkEnemyPartyDeath(enemyParty)
     }
 }
 
