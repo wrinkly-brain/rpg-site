@@ -9,7 +9,7 @@
     No matter if they are able to be placed into the active queue or not, the upcoming queue gets resorted. 
 */
 
-class Queue {
+export class Queue {
     constructor() {
         this.items = [];
     }
