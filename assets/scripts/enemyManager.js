@@ -74,4 +74,4 @@ function updateEnemyPartyDisplay(enemyParty) {
     }
 }
 
-export { genRandWave, eraseEnemyParty, checkEnemyDeath, updateEnemyPartyDisplay, checkEnemyPartyDeath };
+export { genRandWave, eraseEnemyParty, checkEnemyDeath, updateEnemyPartyDisplay };
