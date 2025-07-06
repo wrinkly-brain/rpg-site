@@ -29,21 +29,24 @@ export class Attack extends Ability {
         this.flags = flags;
     }
 
-    enableEnemySelection(hero, enemyParty) {
-        // Logic to return target based on AOE or single target
-        const enemyPartyContainer = document.getElementById('enemyParty');
-        const enemies = enemyPartyContainer.getElementsByClassName('enemy');
+    async enableEnemySelection(hero, enemyParty) {
+        return new Promise(resolve => {
+            // Logic to return target based on AOE or single target
+            const enemyPartyContainer = document.getElementById('enemyParty');
+            const enemies = enemyPartyContainer.getElementsByClassName('enemy');
 
 
-        this.enemyClickHandler = (event) => {
-            const index = event.currentTarget.dataset.enemyIndex; // Get the index from the data attribute
-            const target = enemyParty[index]; // Use the index to get the target from the enemyParty array
-            this.disableEnemySelection(); // Disable further selection
-            this.applyAttack(hero, target, enemyParty); // Call applyAttack with the selected target
-        };
+            this.enemyClickHandler = (event) => {
+                const index = event.currentTarget.dataset.enemyIndex;
+                const target = enemyParty[index];
+                this.disableEnemySelection();
+                this.applyAttack(hero, target, enemyParty);
+                resolve();
+            };
 
-        Array.from(enemies).forEach(enemyDiv => {
-            enemyDiv.addEventListener('click', this.enemyClickHandler);
+            Array.from(enemies).forEach(enemyDiv => {
+                enemyDiv.addEventListener('click', this.enemyClickHandler);
+            });
         });
     }
 
