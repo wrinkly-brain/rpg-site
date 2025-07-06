@@ -1,6 +1,8 @@
-import { Enemy } from "./enemies";
-import { checkEnemyDeath, genRandWave } from "./enemyManager";
-import { displayHeroAbilities, displayHeroStats, updateHeroPartyDisplay } from "./heroManager";
+import { Enemy } from "./enemies.js";
+import { chooseRandEnemyAbility, chooseRandTarget, EnemyAttack } from "./enemyAbility.js";
+import { checkEnemyDeath, genRandWave, updateEnemyPartyDisplay } from "./enemyManager.js";
+import { checkHeroDown, displayHeroAbilities, displayHeroStats, updateHeroPartyDisplay } from "./heroManager.js";
+import { Queue } from "./turnQueue.js";
 
 export class BattleManager {
     constructor(heroParty, enemyParty) {
@@ -8,17 +10,20 @@ export class BattleManager {
         this.enemyParty = enemyParty;
     }
 
-    startBattle(activeQueue) {
+    async startBattle() {
         genRandWave(this.enemyParty);
-        activeQueue = this.genTurnQueue();
+        let activeQueue = this.genTurnQueue();
+        this.displayQueue(activeQueue)
 
         while (!this.enemyParty.every(e => e == null) || !this.heroParty.every(h => h.isDowned == true)) {
             if (activeQueue.length == 0) {
                 activeQueue = this.genTurnQueue();
             }
             else {
-                this.nextTurn(activeQueue);
+                await this.nextTurn(activeQueue);
                 checkEnemyDeath(this.enemyParty);
+                checkHeroDown(this.heroParty);
+                this.updateQueue(activeQueue);
             }
         }
     }
@@ -40,41 +45,45 @@ export class BattleManager {
     }
 
     nextTurn(activeQueue) {
-        const charUpNext = activeQueue.dequeue();
+        return new Promise(async resolve => {
+            const charUpNext = activeQueue.dequeue();
+            console.log(charUpNext);
 
-        if (charUpNext instanceof Enemy) {
-            const ability = chooseRandEnemyAbility(charUpNext.abilities);
-            const target = chooseRandTarget(this.heroParty);
-            if (ability instanceof EnemyAttack) {
-                ability.applyEnemyAttack(target, this.heroParty);
+            if (charUpNext instanceof Enemy) {
+                const ability = chooseRandEnemyAbility(charUpNext.abilities);
+                const target = chooseRandTarget(this.heroParty);
+                if (ability instanceof EnemyAttack) {
+                    ability.applyEnemyAttack(target, this.heroParty);
+                }
+                else {
+                    // Handle aid
+                    console.log("It chose an aid");
+                }
+
+                updateHeroPartyDisplay(this.heroParty);
+
+                setTimeout(() => { resolve(); }, 3000); // Waits 3 seconds after enemy attack so it's not too abrupt
             }
             else {
-                // Handle aid
-                console.log("It chose an aid");
+                // Put these functions in one function maybe
+                if (charUpNext.isDowned) {
+                    console.log(`Ah, scoots. ${charUpNext.name} is downed.`)
+                    setTimeout(() => { resolve(); }, 3000)
+                }
+                else {
+                    displayHeroStats(charUpNext);
+                    await displayHeroAbilities(charUpNext, this.enemyParty, this.heroParty);
+                    resolve();
+                }
             }
-
-            updateHeroPartyDisplay(this.heroParty);
-
-            setTimeout(() => { }, 3000); // Waits 3 seconds after enemy attack so it's not too abrupt
-        }
-        else {
-            // Put these functions in one function maybe
-            if (charUpNext.isDowned) {
-                console.log(`Ah, scoots. ${charUpNext.name} is downed.`)
-                setTimeout(() => { }, 3000)
-            }
-            else {
-                displayHeroStats(charUpNext);
-                displayHeroAbilities(charUpNext, this.enemyParty, this.heroParty);
-            }
-        }
+        })
     }
 
     displayQueue(queue) {
         // Change later since activeQueue and futureQueue should be in the same div
         const activeQueue = document.getElementById("activeQueue");
 
-        for (const char of queue) {
+        for (const char of queue.items) {
             const charSpan = document.createElement("span");
 
             // Set class name for styling
@@ -89,5 +98,13 @@ export class BattleManager {
 
             activeQueue.appendChild(charSpan);
         }
+    }
+
+    updateQueue(queue) {
+        const activeQueue = document.getElementById("activeQueue");
+
+        activeQueue.innerHTML = ''
+
+        this.displayQueue(queue);
     }
 }
