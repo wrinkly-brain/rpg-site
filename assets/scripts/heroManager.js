@@ -28,25 +28,29 @@ export function displayHeroStats(hero) {
                              <h4>Speed: ${hero.speed}</h4>`
 }
 
-export function displayHeroAbilities(hero, enemyParty, heroParty) {
-    const heroAbilities = document.getElementById("heroAbilities");
+export async function displayHeroAbilities(hero, enemyParty, heroParty) {
+    return new Promise(resolve => {
+        const heroAbilities = document.getElementById("heroAbilities");
 
-    for (const ability of hero.abilities) {
-        const button = document.createElement('button');
+        for (const ability of hero.abilities) {
+            const button = document.createElement('button');
 
-        button.textContent = `${ability.name}`
-        button.addEventListener ('click', () => {
-            if (ability instanceof Attack) {
-                ability.enableEnemySelection(hero, enemyParty);
-            }
-            else {
-                // enableHeroSelection needs to be created
-                ability.enableHeroSelection(hero, heroParty);
-            }
-        });
+            button.textContent = ability.name;
+            button.addEventListener('click', async() => {
+                if (ability instanceof Attack) {
+                    await ability.enableEnemySelection(hero, enemyParty);
+                    resolve();
+                }
+                else {
+                    // enableHeroSelection needs to be created
+                    await ability.enableHeroSelection(hero, heroParty);
+                    resolve();
+                }
+            });
 
-        heroAbilities.appendChild(button);
-    }
+            heroAbilities.appendChild(button);
+        }
+    })
 }
 
 export function updateHeroPartyDisplay(heroParty) {
