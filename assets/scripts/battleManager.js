@@ -16,13 +16,14 @@ export class BattleManager {
         this.displayQueue(activeQueue)
 
         while (!this.enemyParty.every(e => e == null) || !this.heroParty.every(h => h.isDowned == true)) {
-            if (activeQueue.length == 0) {
+            if (activeQueue.items.length == 0) {
                 activeQueue = this.genTurnQueue();
             }
             else {
                 await this.nextTurn(activeQueue);
                 checkEnemyDeath(this.enemyParty);
                 checkHeroDown(this.heroParty);
+                updateEnemyPartyDisplay(this.enemyParty)
                 this.updateQueue(activeQueue);
             }
         }
