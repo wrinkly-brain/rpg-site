@@ -1,6 +1,6 @@
 // import { Knight, Medic, Performer, Rifleman, Brawler } from './heroes.js';
 // import { Attack, Aid } from './abilities.js';
-import { Brawler } from './heroes.js';
+import { Brawler, Knight } from './heroes.js';
 import { BattleManager } from './battleManager.js';
 import { genSimpleHeroDisplay } from './heroManager.js';
 
@@ -15,6 +15,11 @@ const genHeroDisplayButton = document.getElementById("genHeroDisplayButton")
 addBrawlerButton.addEventListener("click", () => {
     const brawler = Brawler;
     heroParty.push(brawler);
+});
+
+addKnightButton.addEventListener("click", () => {
+    const knight = Knight;
+    heroParty.push(knight);
 });
 
 startGameButton.addEventListener("click", () => {
