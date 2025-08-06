@@ -15,17 +15,17 @@ function displayEnemyParty(enemyParty) {
 
     for (let i = 0; i < enemyParty.length; i++) {
         const enemy = enemyParty[i];
-        const enemyDiv = document.createElement('div');
-        enemyDiv.className = 'enemy';
-        enemyDiv.dataset.enemyIndex = i; // Store the index of the enemy in the array
-        enemyDiv.innerHTML = `
+        const enemySpan = document.createElement('span');
+        enemySpan.className = 'enemy';
+        enemySpan.dataset.enemyIndex = i; // Store the index of the enemy in the array
+        enemySpan.innerHTML = `
             <h3>${enemy.name}</h3>
             <p>ID: ${enemy.id}</p>
             <p class="enemy-hp">HP: ${enemy.hp}/${enemy.maxHp}</p>
             <p>Speed: ${enemy.speed}</p>
             <p>Defense: ${enemy.defense}</p>
         `;
-        enemyPartyContainer.appendChild(enemyDiv);
+        enemyPartyContainer.appendChild(enemySpan);
     }
 }
 
