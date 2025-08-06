@@ -1,3 +1,7 @@
+// Current problems:
+// Downed heroes and dead enemies aren't removed from the queue if they die before the queue is generated.
+// To add to the last one, I don't think there's logic that is supposed to remove downed heroes
+
 import { Enemy } from "./enemies.js";
 import { chooseRandEnemyAbility, chooseRandTarget, EnemyAttack } from "./enemyAbility.js";
 import { checkEnemyDeath, genRandWave, updateEnemyPartyDisplay } from "./enemyManager.js";
@@ -13,10 +17,11 @@ export class BattleManager {
     async startBattle() {
         genRandWave(this.enemyParty);
         let activeQueue = this.genTurnQueue();
-        this.displayQueue(activeQueue)
+        this.displayQueue(activeQueue);
 
-        while (!this.enemyParty.every(e => e == null) || !this.heroParty.every(h => h.isDowned == true)) {
-            if (activeQueue.items.length == 0) {
+        while (!this.enemyParty.every(e => e === null) && !this.heroParty.every(h => h.isDowned === true)) {
+            
+            if (activeQueue.items.length === 0) {
                 activeQueue = this.genTurnQueue();
             }
             else {
@@ -27,12 +32,16 @@ export class BattleManager {
                 this.updateQueue(activeQueue);
             }
         }
+
+        if (!this.heroParty.every(h => h.isDowned === true)) {
+
+        }
     }
 
     genTurnQueue() {
         // Add currentSpeed values for heroes and enemies and change this function later
 
-        let tempArray = this.heroParty.concat(this.enemyParty);
+        let tempArray = this.heroParty.concat(this.enemyParty).filter(character => character);
 
         let turnQueue = new Queue();
 
@@ -48,8 +57,7 @@ export class BattleManager {
     nextTurn(activeQueue) {
         return new Promise(async resolve => {
             const charUpNext = activeQueue.dequeue();
-            console.log(charUpNext);
-
+            
             if (charUpNext instanceof Enemy) {
                 const ability = chooseRandEnemyAbility(charUpNext.abilities);
                 const target = chooseRandTarget(this.heroParty);
