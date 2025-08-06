@@ -77,8 +77,6 @@ export class Attack extends Ability {
                 }
                 chance *= 0.75;
             }
-            console.log(`Miss: ${miss}, Chance: ${chance}`);
-            console.log(`Hit Counter: ${hitCounter}`);
         }
 
         else if (this.flags.isAOE) {
