@@ -1,21 +1,4 @@
-// Gotta add functions to dynamically show and hide hero abilities and stats
-// Add functions to manage hero selection?
-
 import { Attack } from "./ability.js";
-
-// const heroPartyContainer = document.getElementById('heroParty');
-// for (let i = 0; i < heroParty.length; i++) {
-//     const hero = heroParty[i];
-//     const heroDiv = document.createElement('div');
-//     heroDiv.className = 'hero';
-//     heroDiv.dataset.index = i; // Store the index of the hero in the array
-//     heroDiv.innerHTML = `
-//         <h3>${hero.name}</h3>
-//         <p>HP: ${hero.hp}/${hero.maxHp}</p>
-//         <p>AP: ${hero.ap}/${hero.maxAp}</p>
-//         <p>Speed: ${hero.speed}</p>
-//         <p>Defense: ${hero.defense}</p>`;
-// }
 
 export function displayHeroStats(hero) {
     const currentHero = document.getElementById("currentHero")
