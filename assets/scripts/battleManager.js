@@ -1,7 +1,3 @@
-// Current problems:
-// Downed heroes and dead enemies aren't removed from the queue if they die before the queue is generated.
-// To add to the last one, I don't think there's logic that is supposed to remove downed heroes
-
 import { Enemy } from "./enemies.js";
 import { chooseRandEnemyAbility, chooseRandTarget, EnemyAttack } from "./enemyAbility.js";
 import { checkEnemyDeath, genRandWave, updateEnemyPartyDisplay } from "./enemyManager.js";
@@ -20,30 +16,35 @@ export class BattleManager {
         this.displayQueue(activeQueue);
 
         while (!this.enemyParty.every(e => e === null) && !this.heroParty.every(h => h.isDowned === true)) {
-            
             if (activeQueue.items.length === 0) {
                 activeQueue = this.genTurnQueue();
             }
             else {
+                // Call up next turn
                 await this.nextTurn(activeQueue);
+
+                // Check if any characters were defeated
                 checkEnemyDeath(this.enemyParty);
                 checkHeroDown(this.heroParty);
-                updateEnemyPartyDisplay(this.enemyParty)
-                this.updateQueue(activeQueue);
+
+                updateEnemyPartyDisplay(this.enemyParty);
+
+                // Update queue to account for deaths/speed changes
+                activeQueue = this.updateQueue(activeQueue);
+                this.updateQueueDisplay(activeQueue);
             }
         }
 
         if (!this.heroParty.every(h => h.isDowned === true)) {
-
+            // Add loss screen or something
         }
     }
 
     genTurnQueue() {
         // Add currentSpeed values for heroes and enemies and change this function later
+        const tempArray = this.heroParty.concat(this.enemyParty).filter(character => character);
 
-        let tempArray = this.heroParty.concat(this.enemyParty).filter(character => character);
-
-        let turnQueue = new Queue();
+        const turnQueue = new Queue();
 
         tempArray.sort((a, b) => b.speed - a.speed)
 
@@ -57,7 +58,7 @@ export class BattleManager {
     nextTurn(activeQueue) {
         return new Promise(async resolve => {
             const charUpNext = activeQueue.dequeue();
-            
+
             if (charUpNext instanceof Enemy) {
                 const ability = chooseRandEnemyAbility(charUpNext.abilities);
                 const target = chooseRandTarget(this.heroParty);
@@ -71,13 +72,13 @@ export class BattleManager {
 
                 updateHeroPartyDisplay(this.heroParty);
 
-                setTimeout(() => { resolve(); }, 3000); // Waits 3 seconds after enemy attack so it's not too abrupt
+                setTimeout(() => { resolve(); }, 2000); // Waits 2 seconds after enemy attack so it's not too abrupt
             }
             else {
                 // Put these functions in one function maybe
                 if (charUpNext.isDowned) {
                     console.log(`Ah, scoots. ${charUpNext.name} is downed.`)
-                    setTimeout(() => { resolve(); }, 3000)
+                    setTimeout(() => { resolve(); }, 2000)
                 }
                 else {
                     displayHeroStats(charUpNext);
@@ -109,11 +110,42 @@ export class BattleManager {
         }
     }
 
-    updateQueue(queue) {
+    updateQueueDisplay(queue) {
         const activeQueue = document.getElementById("activeQueue");
 
         activeQueue.innerHTML = ''
 
         this.displayQueue(queue);
     }
+
+    updateQueue(queue) {
+        // Store characters in an array for sorting and checking
+        const tempArray = [];
+        const queueLength = queue.size();
+
+        for (let i = 0; i < queueLength; i++) {
+            tempArray.push(queue.dequeue());
+        }
+
+        tempArray.forEach((c, index) => {
+            // Optionally remove downed heroes
+            if (c instanceof Enemy) {
+                if (c.hp <= 0) {
+                    tempArray.splice(index, 1);
+                }
+            }
+        });
+
+        // Queue to be returned
+        const newQueue = new Queue();
+
+        // Sort based on speed (will be helpful later for when speed buffs and debuffs need handled)
+        tempArray.sort((a, b) => b.speed - a.speed)
+
+        for (const c of tempArray) {
+            newQueue.enqueue(c)
+        }
+
+        return newQueue;
+    };
 }
