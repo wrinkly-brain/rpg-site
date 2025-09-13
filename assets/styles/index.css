@@ -1,0 +1,57 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    line-height: 1.8;
+    padding: 0.5em;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    grid-template-areas: "setup setup setup"
+                         "turnQueue enemyParty heroAbilities"
+                         "turnQueue heroParty heroAbilities";
+    row-gap: 50px;
+    column-gap: 25px;
+}
+
+.setupContainer {
+    border-bottom: 3px solid black;
+    grid-area: setup;
+}
+
+.turnQueue {
+    grid-area: turnQueue;
+    border: 3px solid black;
+}
+
+.heroAbilities {
+    grid-area: heroAbilities;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+}
+
+.enemyParty {
+    grid-area: enemyParty;
+    border: 3px solid black;
+}
+
+.enemyParty div {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.heroParty {
+    grid-area: heroParty;
+    border: 3px solid black;
+}
+
+.heroParty div {
+    display: flex;
+    justify-content: space-evenly;
+}
