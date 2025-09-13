@@ -6,43 +6,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="assets/styles/index.css">
 </head>
 
 <body>
-    <div>
-        <h1>Testing and So On</h1>
-        <hr>
-        <div>
-            <h2>Add Hero</h2>
-            <button id="addBrawlerButton">Add Brawler</button>
-            <button id="addKnightButton">Add Brawler</button>
+    <div class="container">
+        <div class="setupContainer">
+            <h1>Testing and So On</h1>
+            <hr>
+            <div>
+                <h2>Add Hero</h2>
+                <button id="addBrawlerButton">Add Brawler</button>
+                <button id="addKnightButton">Add Knight</button>
+            </div>
+            <div>
+                <h2>Game Start</h2>
+                <button id="startGameButton">Start Game</button>
+            </div>
         </div>
-        <div>
-            <h2>Game Start</h2>
-            <button id="startGameButton">Start Game</button>
-        </div>
-        <div id="activeQueue">
+        <div id="activeQueue" class="turnQueue">
             <!-- Turn queue will be displayed here -->
         </div>
-        <div>
+        <div class="heroParty">
             <h2>Simple Hero Display</h2>
-            <button id="genHeroDisplayButton">Generate Hero Display</button>
             <div id="simpleHeroDisplay">
 
             </div>
         </div>
         <div>
-            <h2>Hero</h2>
+            <!-- <h2>Hero</h2>
             <!-- Highly consider setting up html code that holds heroes since the hero party will never change -->
             <div id="currentHero">
 
             </div>
-            <div id="heroAbilities">
+            <div id="heroAbilities" class="heroAbilities">
 
             </div>
         </div>
-        <div>
+        <div class="enemyParty">
             <h2>Enemies</h2>
 
             <div id="enemyParty">
