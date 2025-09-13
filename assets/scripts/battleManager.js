@@ -1,7 +1,7 @@
 import { Enemy } from "./enemies.js";
 import { chooseRandEnemyAbility, chooseRandTarget, EnemyAttack } from "./enemyAbility.js";
 import { checkEnemyDeath, genRandWave, updateEnemyPartyDisplay } from "./enemyManager.js";
-import { checkHeroDown, displayHeroAbilities, displayHeroStats, updateHeroPartyDisplay } from "./heroManager.js";
+import { checkHeroDown, displayHeroAbilities, genSimpleHeroDisplay, updateHeroPartyDisplay } from "./heroManager.js";
 import { Queue } from "./turnQueue.js";
 
 export class BattleManager {
@@ -14,10 +14,12 @@ export class BattleManager {
         genRandWave(this.enemyParty);
         let activeQueue = this.genTurnQueue();
         this.displayQueue(activeQueue);
+        genSimpleHeroDisplay(this.heroParty);
 
         while (!this.enemyParty.every(e => e === null) && !this.heroParty.every(h => h.isDowned === true)) {
             if (activeQueue.items.length === 0) {
                 activeQueue = this.genTurnQueue();
+                this.updateQueueDisplay(activeQueue);
             }
             else {
                 // Call up next turn
@@ -81,7 +83,8 @@ export class BattleManager {
                     setTimeout(() => { resolve(); }, 2000)
                 }
                 else {
-                    displayHeroStats(charUpNext);
+                    // TODO: Make pop up display for hovering over characters
+                    // displayHeroStats(charUpNext);
                     await displayHeroAbilities(charUpNext, this.enemyParty, this.heroParty);
                     resolve();
                 }
