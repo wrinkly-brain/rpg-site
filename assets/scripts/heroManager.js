@@ -1,7 +1,8 @@
 import { Attack } from "./ability.js";
 
 export function displayHeroStats(hero) {
-    const currentHero = document.getElementById("currentHero")
+    // TODO: Turn this into a pop up
+    const currentHero = document.getElementById("currentHero");
 
     currentHero.innerHTML = `<h3>${hero.name}</h3>
                              <h4>HP: ${hero.hp}/${hero.maxHp}</h4>
@@ -63,6 +64,9 @@ export function updateHeroPartyDisplay(heroParty) {
 
         const hpElement = heroDiv.querySelector('.hero-hp');
         hpElement.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+
+        const apElement = heroDiv.querySelector('.hero-ap');
+        apElement.textContent = `AP: ${hero.ap}/${hero.maxAp}`
     }
 }
 
@@ -88,8 +92,8 @@ export function genSimpleHeroDisplay(heroParty) {
         heroSpan.dataset.heroIndex = i;
 
         heroSpan.innerHTML = `<h4>${hero.name}</h4>
-                              <h5 class="hero-hp">${hero.hp}/${hero.maxHp}</h5>
-                              <h5 class="hero-ap">${hero.ap}/${hero.maxAp}</h5>`
+                              <h5 class="hero-hp">HP: ${hero.hp}/${hero.maxHp}</h5>
+                              <h5 class="hero-ap">AP: ${hero.ap}/${hero.maxAp}</h5>`
 
         simpleHeroDisplay.appendChild(heroSpan);
     }
