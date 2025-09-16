@@ -26,7 +26,3 @@ startGameButton.addEventListener("click", () => {
     const battle = new BattleManager(heroParty, enemyParty);
     battle.startBattle();
 });
-
-genHeroDisplayButton.addEventListener("click", () => {
-    genSimpleHeroDisplay(heroParty);
-})
