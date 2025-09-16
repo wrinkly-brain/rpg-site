@@ -9,3 +9,10 @@ export function SingleHeal() {
     }
 }
 
+export function RestoreAP(hero, amount) {
+    if ((hero.ap + amount) >= hero.maxAp) {
+        hero.ap = hero.maxAp;
+    } else {
+        hero.ap += amount;
+    }
+}
