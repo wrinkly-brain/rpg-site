@@ -1,4 +1,5 @@
 import { Attack } from "./ability.js";
+import { RestoreAP } from "./buffs.js";
 
 export function displayHeroStats(hero) {
     // TODO: Turn this into a pop up
@@ -16,39 +17,68 @@ export async function displayHeroAbilities(hero, enemyParty, heroParty) {
     return new Promise(resolve => {
         const heroAbilities = document.getElementById("heroAbilities");
 
+        // Start of btn creation loop
         for (const ability of hero.abilities) {
-            const button = document.createElement('button');
+            const btn = document.createElement('button');
 
-            button.textContent = ability.name;
-            button.addEventListener('click', async() => {
-                disableAbilityButtons();
-                if (ability instanceof Attack) {
-                    await ability.enableEnemySelection(hero, enemyParty);
-                    removeAbilityButtons();
-                    resolve();
-                }
-                else {
-                    // enableHeroSelection needs to be created
-                    await ability.enableHeroSelection(hero, heroParty);
-                    removeAbilityButtons();
-                    resolve();
-                }
+            btn.textContent = ability.name;
+
+            if (hero.ap < ability.apCost) {
+                btn.disabled = true;
+                // TODO: Add css tooltip to say that the hero doesn't have enough ap
+            }
+            else {
+                btn.addEventListener('click', async () => {
+                    disableAbilityButtons();
+                    // Checks for Attack else it assumes it's an Aid
+                    if (ability instanceof Attack) {
+                        await ability.enableEnemySelection(hero, enemyParty);
+                        removeAbilityButtons();
+                        resolve();
+                    }
+                    else {
+                        // enableHeroSelection needs to be created
+                        await ability.enableHeroSelection(hero, heroParty);
+                        removeAbilityButtons();
+                        resolve();
+                    }
+                });
+            }
+
+            btn.classList.add('ability-btn');
+            heroAbilities.appendChild(btn);
+        };
+
+        const btn = document.createElement('button');
+        btn.textContent = "Restore AP";
+
+        if (hero.ap < hero.maxAp) {
+            // Restore 40% of the hero's max ap
+            const apRestoreAmount = Math.round(.4*hero.maxAp);
+
+            btn.addEventListener('click', () => {
+                RestoreAP(hero, apRestoreAmount);
+                removeAbilityButtons();
+                resolve();
             });
+        } else {
+            btn.disabled = true;
+        };
 
-            button.classList.add('ability-btn');
-
-            heroAbilities.appendChild(button);
-        }
-    })
+        btn.classList.add('restoreAp-btn');
+        heroAbilities.appendChild(btn);
+    });
 }
 
 function disableAbilityButtons() {
     const abilityButtons = document.getElementsByClassName("ability-btn");
+    const restoreApButton = document.querySelector('.restoreAp-btn');
 
     for (const btn of abilityButtons) {
         btn.disabled = true;
     }
 
+    restoreApButton.disabled = true;
 }
 
 function removeAbilityButtons() {
