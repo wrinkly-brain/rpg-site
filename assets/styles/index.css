@@ -1,3 +1,13 @@
+@keyframes enemy-selectable-color-shift {
+    0% {
+        border: 3px solid #ff0000;
+    }
+
+    100% {
+        border: 3px solid #ffff00;
+    }
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -44,6 +54,19 @@ body {
 .enemyParty div {
     display: flex;
     justify-content: space-evenly;
+}
+
+.enemy-card {
+    border: 3px solid #ff0000;
+    border-radius: 20px;
+    padding: 1em;
+    width: 10em;
+    text-align: center;
+}
+
+.enemy-selectable {
+    animation: enemy-selectable-color-shift 2s linear 0s infinite alternate;
+    cursor: pointer;
 }
 
 .heroParty {
