@@ -16,7 +16,7 @@ function displayEnemyParty(enemyParty) {
     for (let i = 0; i < enemyParty.length; i++) {
         const enemy = enemyParty[i];
         const enemySpan = document.createElement('span');
-        enemySpan.className = 'enemy';
+        enemySpan.className = 'enemy-card';
         enemySpan.dataset.enemyIndex = i; // Store the index of the enemy in the array
         enemySpan.innerHTML = `
             <h3>${enemy.name}</h3>
@@ -50,7 +50,7 @@ function checkEnemyDeath(enemyParty) {
 
         if (currentEnemy) {
             if (currentEnemy.hp <= 0) {
-                enemyParty.splice(i, 1, null) // Dead enemy is replaced with null to keep other enemies in the same positions in array
+                enemyParty.splice(i, 1, null) // Dead enemy is replaced with null to keep other enemies in the same positions in array   
             }
         }
     }
@@ -63,6 +63,7 @@ function updateEnemyPartyDisplay(enemyParty) {
 
         if (!enemy) {
             enemyDiv.innerHTML = '' // Clear card for dead enemy
+            // TODO: Optimize this check and create a null enemy card
 
             // enemyDiv.innerHTML = '<p>Empty Slot</p>'; // Optional: Display "Empty Slot"
             // enemyDiv.classList.add('empty'); // Optional: Add a class for styling
