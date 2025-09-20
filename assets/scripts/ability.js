@@ -33,7 +33,7 @@ export class Attack extends Ability {
         return new Promise(resolve => {
             // Logic to return target based on AOE or single target
             const enemyPartyContainer = document.getElementById('enemyParty');
-            const enemies = enemyPartyContainer.getElementsByClassName('enemy');
+            const enemies = enemyPartyContainer.getElementsByClassName('enemy-card');
 
 
             this.enemyClickHandler = (event) => {
@@ -46,24 +46,27 @@ export class Attack extends Ability {
 
             Array.from(enemies).forEach(enemyDiv => {
                 enemyDiv.addEventListener('click', this.enemyClickHandler);
+                enemyDiv.classList.add('enemy-selectable');
             });
         });
     }
 
     disableEnemySelection() {
         const enemyPartyContainer = document.getElementById('enemyParty');
-        const enemies = enemyPartyContainer.getElementsByClassName('enemy');
+        const enemies = enemyPartyContainer.getElementsByClassName('enemy-card');
 
         Array.from(enemies).forEach(enemyDiv => {
             enemyDiv.removeEventListener('click', this.enemyClickHandler);
+            enemyDiv.classList.remove('enemy-selectable');
         });
     }
 
     applyAttack(hero, target, enemyParty) {
+        // TODO: Add callback function param for debuffs
         const damage = this.damage;
         // Handle Multihit
         if (this.flags.isMultihit) {
-            // Create variables to track chance to hit and miss. Hit counter is for display purposes
+            // TODO: Create variables to track chance to hit and miss. Hit counter is for display purposes
             let chance = 100;
             let miss = 0;
             let hitCounter = 0;
@@ -137,6 +140,8 @@ export class Aid extends Ability {
         this.bLength = bLength;
         this.flags = flags
     }
+
+    // TODO: enableHeroSelection, disableHeroSelection, applyAid
 
     // applyAid(hero, target, buff) {
     //     buff = this.buffEffect;
