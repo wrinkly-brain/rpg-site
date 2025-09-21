@@ -58,15 +58,18 @@ function checkEnemyDeath(enemyParty) {
 
 function updateEnemyPartyDisplay(enemyParty) {
     for (let i = 0; i < enemyParty.length; i++) {
-        const enemy = enemyParty[i]
-        const enemyDiv = document.querySelector(`[data-enemy-index="${i}"]`)
+        const enemy = enemyParty[i];
+        const enemyDiv = document.querySelector(`[data-enemy-index="${i}"]`);
 
+        // Check for dead enemy. If alive, update health
         if (!enemy) {
-            enemyDiv.innerHTML = '' // Clear card for dead enemy
-            // TODO: Optimize this check and create a null enemy card
-
-            // enemyDiv.innerHTML = '<p>Empty Slot</p>'; // Optional: Display "Empty Slot"
-            // enemyDiv.classList.add('empty'); // Optional: Add a class for styling
+            // Only edit html and css if the enemy just died
+            if (!enemyDiv.dataset.isEmpty) {
+                enemyDiv.dataset.isEmpty = true;
+                enemyDiv.innerHTML = ''; // Clear card for dead enemy
+                enemyDiv.classList.remove('enemy-card');
+                enemyDiv.classList.add('blank-card');
+            }            
         }
         else {
             const hpElement = enemyDiv.querySelector('.enemy-hp');
