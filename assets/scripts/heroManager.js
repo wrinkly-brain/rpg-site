@@ -21,7 +21,10 @@ export async function displayHeroAbilities(hero, enemyParty, heroParty) {
         for (const ability of hero.abilities) {
             const btn = document.createElement('button');
 
-            btn.textContent = ability.name;
+            btn.innerHTML = `
+                            <h3>${ability.name}</h3>
+                            <p>${ability.description}</p>
+            `;
 
             if (hero.ap < ability.apCost) {
                 btn.disabled = true;
@@ -50,7 +53,10 @@ export async function displayHeroAbilities(hero, enemyParty, heroParty) {
         };
 
         const btn = document.createElement('button');
-        btn.textContent = "Restore AP";
+        btn.innerHTML = `
+                        <h3>Restore AP</h3>
+                        <p>Restore 40% of the hero's max AP.</p>
+        `;
 
         if (hero.ap < hero.maxAp) {
             // Restore 40% of the hero's max ap
