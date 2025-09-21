@@ -65,6 +65,7 @@ body {
 }
 
 .enemy-card {
+    /* TODO: Edit text spacing and style of text in cards */
     border: 3px solid #ff0000;
     border-radius: 20px;
     padding: 1em;
