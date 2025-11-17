@@ -28,7 +28,9 @@ Start the server
   ./index.html
 ```
 
+## Tech Stack
 
+- HTML, JavaScript, CSS
 ## How It Works
 
 ### Important Note:
