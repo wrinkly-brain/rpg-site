@@ -46,8 +46,8 @@ Start the server
 
 ### Core Systems
 
-- **Turn Queue:** This object is used to manage the turn order of characters during a battle.
-- **Abilities:** Can either be an Attack (used against opposing party) or Aid (used on characters within party of aid user).
+- **Turn Queue:** This object is used to manage the turn order of characters during a battle
+- **Abilities:** Can either be an Attack (used against opposing party) or an Aid (used on characters within party of aid user)
 
 ## Known Issues
 
