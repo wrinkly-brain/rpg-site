@@ -1,10 +1,20 @@
 
 # Turn-Based RPG Web Game
 
-A browser-based RPG inspired by classic Final Fantasy games! This project is a work in progress!
+A browser-based RPG inspired by classic Final Fantasy games! I love video games and creating one has been a goal of mine since I began learning how to code. So, when I felt that I was prepared to create a web game, I jumped at the opportunity. 
 
+During the development of this game, I've learned two lessons:
+- **It's incredibly important to plan ahead**
 
+I went into this project without a solid plan or a clear understanding of how much work it would take. By the time I realized the complexity of this project, I had already built a shaky foundation.
 
+- **Don't bite off more than you can chew**
+
+Considering my level of knowledge when I started this project, I was in over my head. I hadn't learned TypeScript or any frameworks, both of which could have made this project much simpler.
+
+In the interest of moving onto other projects sooner rather than later, I've decided to build off of the shaky foundation I have created. With enough persistence, I believe I can make a fun web game, no matter the conditions I've set for myself.
+
+Look forward to more updates soon!
 
 ## Live Site
 
@@ -31,23 +41,25 @@ Start the server
 ## Tech Stack
 
 - HTML, JavaScript, CSS
-## How It Works
+## Usage
 
 ### Important Note:
-*This project is unfinished and prone to various unhandled errors. I just wanted to release and deploy it now.*
+*This project is unfinished and prone to various unhandled errors.*
 
 ### Playing the Game
 - Click on the `Add Brawler` and/or the `Add Knight` button to add them to the hero party *(Don't select the same hero twice)*
 - Click `Start Game` to generate an enemy party and initialize a battle
-- Characters are sorted by speed and placed into a descending turn queue
+- Characters are sorted by speed and placed into a turn queue in descending order
 - If it's a hero's turn, the user selects an ability
 - If it's an enemy's turn, an ability is selected based on weighted probability
 - The game ends when all heroes are downed or all enemies are slain
 
-### Core Systems
+## How It Works
 
+- **Battle Manager:** A battle manager object is used to handle battle state and turn cycle
 - **Turn Queue:** This object is used to manage the turn order of characters during a battle
-- **Abilities:** Can either be an Attack (used against opposing party) or an Aid (used on characters within party of aid user)
+- **Characters:** Heroes (controlled by the user) and enemies both have sets of abilites that can be used in battle
+- **Abilities:** Can either be an Attack (used against opposing party) or an Aid (used on characters within party of the character using the Aid ability)
 
 ## Known Issues
 
