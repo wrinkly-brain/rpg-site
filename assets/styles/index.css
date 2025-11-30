@@ -25,7 +25,7 @@ body {
     grid-template-areas: "setup setup setup"
                          "turnQueue enemyParty heroAbilities"
                          "turnQueue heroParty heroAbilities";
-    row-gap: 50px;
+    row-gap: 5px;
     column-gap: 25px;
 }
 
