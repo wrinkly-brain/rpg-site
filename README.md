@@ -12,9 +12,7 @@ I went into this project without a solid plan or a clear understanding of how mu
 
 Considering my level of knowledge when I started this project, I was in over my head. I hadn't learned TypeScript or any frameworks, both of which could have made this project much simpler.
 
-In the interest of moving onto other projects sooner rather than later, I've decided to build off of the shaky foundation I have created. With enough persistence, I believe I can make a fun web game, no matter the conditions I've set for myself.
-
-Look forward to more updates soon!
+After setting aside this project and not picking it back up due to how convoluted the spaghetti code is, I've made the decision to not continue working on this repo. I still want to create a web game, and making a turn-based rpg sounds fun. But, building off of this is not ideal.
 
 ## Live Site
 
@@ -66,14 +64,11 @@ Start the server
 - Selecting multiple of the same hero causes heroes of the same kind to have linked AP and HP values
 - Selecting an Aid ability crashes the game
 - No way to unselect an ability once chosen
+
 ## Roadmap
 
-- Implement debuffs and aid abilites
-
-- Finish main game flow
-
-- Improve style
-
+- Never update this repo again
+- Make a more orderly and functional version of this game
 
 ## Author
 
